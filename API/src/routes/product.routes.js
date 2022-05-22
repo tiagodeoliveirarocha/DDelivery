@@ -6,5 +6,6 @@
  router.get('/ordens', productController.ordens);
  router.get('/colaborador', productController.colaborador);
  router.post('/addordem', productController.adicionarOrdem);
+ router.post('/adicionarcolab', productController.adicionarColaborador);
 
  module.exports = router;

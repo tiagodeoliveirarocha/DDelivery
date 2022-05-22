@@ -101,11 +101,16 @@ function Objetos() {
 
               </div>
             </div>
+            <div className="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Sucesso!</strong> Um novo objeto foi adicionado.
+  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close">
 
+  </button>
+</div>
 
 
             <div class="table-responsive" id="tabelinha">
-              <table class="table table-striped table-sm">
+              <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">Cod. Objeto</th>

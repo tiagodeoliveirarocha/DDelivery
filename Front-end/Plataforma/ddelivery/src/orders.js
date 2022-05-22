@@ -34,7 +34,7 @@ function Orders() {
       <div className="container-fluid">
 
         <div className="row">
-          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
             <div className="position-sticky pt-3">
               <ul className="nav flex-column">
                 <li className="nav-item">
@@ -102,7 +102,12 @@ function Orders() {
 
               </div>
             </div>
+<div className="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Sucesso!</strong> Uma nova ordem foi adicionada.
+  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close">
 
+  </button>
+</div>
 
 
             <div className="table-responsive" id="tabelinha">

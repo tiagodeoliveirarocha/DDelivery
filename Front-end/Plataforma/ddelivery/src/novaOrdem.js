@@ -1,15 +1,12 @@
 import React from "react";
-import {Modal, Button} from 'react-bootstrap';
-
-
-
 
 class Novaordem extends React.Component {
     render() {
         return (
             <div>
               
-<form id="dataOrdem">
+<form onSubmit={this.handleSubmit}>
+  
   <p></p>
   <h2 class="h4" align="left">Ordem #123456</h2>
 

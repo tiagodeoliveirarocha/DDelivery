@@ -35,14 +35,6 @@ exports.colaborador = async (req, res) => {
   res.status(200).send(response.rows);
 };
 
-
-
-
-
-
-
-
-
 //Post nas ordens
 
 exports.createProduct = async (req, res) => {
@@ -74,6 +66,28 @@ exports.adicionarOrdem = async (req, res) => {
     body: {
       Entregador: { Entregador },
       Cliente: { Cliente }
+    },
+  });
+};
+
+//post novo colaborador
+
+exports.adicionarColaborador = async (req, res) => {
+  const { nome, sobrenome, cidade, estado, placa, capacidade } = req.body;
+  const { rows } = await db.query(
+    'INSERT INTO colaborador ("nome", "sobrenome", "cidade", "estado", "placa", "capacidade") VALUES ($1, $2, $3, $4, $5, $6)',
+    [nome, sobrenome, cidade, estado, placa, capacidade]
+  );
+
+  res.status(201).send({
+    message: "Colaborador adicionado com sucesso!",
+    body: {
+      nome: { nome },
+      sobrenome: { sobrenome },
+      cidade: { cidade },
+      estado: { estado },
+      placa: { placa },
+      capacidade: { capacidade }
     },
   });
 };

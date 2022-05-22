@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import url from './assets/api';
 import Novocolaborador from "./novoColaborador";
+import {BsPencilSquare} from "react-icons/bs";
 
 function Equipe() {
+
   const [equipe, setEquipe] = useState([])
   const getEquipe = async () => {
     const response = await axios.get(url+"/colaborador");
@@ -13,10 +15,11 @@ function Equipe() {
     getEquipe();
   }, []);
 
+
+
   return (
     <div>
       <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-
         <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">D.Delivery</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -65,7 +68,6 @@ function Equipe() {
           </nav>
 
 
-
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h1 class="h2">Gestão de equipe</h1>
@@ -73,34 +75,19 @@ function Equipe() {
               <button type="button" className="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
                   Novo colaborador
                 </button>
-
-<div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog modal-xl" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Adicionar novo colaborador</h5>
-        <button type="button" className="btn-close" data-dismiss="modal">
-        </button>
-      </div>
-      <div className="modal-body">
-        
 <Novocolaborador />
-
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" className="btn btn-primary">Salvar</button>
-      </div>
-    </div>
-  </div>
-</div>
               </div>
             </div>
 
+<div className="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Sucesso!</strong> Um novo colaborador foi adicionado.
+  <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close">
 
+  </button>
+</div>
 
             <div class="table-responsive" id="tabelinha">
-              <table class="table table-striped table-sm">
+              <table class="table table-striped">
                 <thead>
                   <tr>
                     <th scope="col">Matricula</th>
@@ -121,13 +108,16 @@ function Equipe() {
                       <td>{equipe.cidade}, {equipe.estado}</td>
                       <td>{equipe.turno}</td>
                       <td>{equipe.placa}</td>
-                      <td>{equipe.capacidade}</td>
-                      <td>{equipe.date}</td>
+                      <td>{equipe.capacidade} objetos</td>
+                      <td><div><button className="btn btn-primary"><BsPencilSquare /></button></div>
+                
+                      </td>
                     </tr>
                     )
                     })}
                 </tbody>
               </table>
+
             </div>
           </main>
         </div>

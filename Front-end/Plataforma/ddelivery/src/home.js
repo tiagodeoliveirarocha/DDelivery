@@ -1,6 +1,14 @@
 import React from "react";
+import Donut from "./grafico";
 
 class Home extends React.Component {
+
+
+
+
+
+
+  
     render() {
         return (
 <div>
@@ -61,21 +69,66 @@ class Home extends React.Component {
         </div>
       </div>
 
-      <canvas className="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+     
+
+<Donut className="table-responsive" />
+
 
       <h2>Últimas Entregas</h2>
       <div className="table-responsive">
-        <table className="table table-striped table-sm">
+        <table className="table table-striped">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
+              <th scope="col">Objeto</th>
+              <th scope="col">Entregador</th>
+              <th scope="col">Cliente</th>
+              <th scope="col">Cidade</th>
+              <th scope="col">Ordem</th>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>1,001</td>
+              <td>random</td>
+              <td>data</td>
+              <td>placeholder</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>1,001</td>
+              <td>random</td>
+              <td>data</td>
+              <td>placeholder</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>1,001</td>
+              <td>random</td>
+              <td>data</td>
+              <td>placeholder</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>1,001</td>
+              <td>random</td>
+              <td>data</td>
+              <td>placeholder</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>1,001</td>
+              <td>random</td>
+              <td>data</td>
+              <td>placeholder</td>
+              <td>text</td>
+            </tr>
+            <tr>
+              <td>1,001</td>
+              <td>random</td>
+              <td>data</td>
+              <td>placeholder</td>
+              <td>text</td>
+            </tr>
             <tr>
               <td>1,001</td>
               <td>random</td>
