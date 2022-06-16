@@ -4,7 +4,9 @@ import './assets/dist/css/dashboard.css';
 import 'https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js';
 import axios from 'axios';
 import url from './assets/api';
-import Novoobjeto from "./novoObjeto";
+import ModalNovoObjeto from "./modalNovoObjeto";
+import ModalEditarObjeto from "./modalEditarObjeto";
+import {Table} from 'react-bootstrap';
 
 function Objetos() {
   const [objeto, setObjeto] = useState([])
@@ -73,36 +75,13 @@ function Objetos() {
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h1 class="h2">Gestão de objetos</h1>
               <div class="btn-toolbar mb-2 mb-md-0">
-                <button type="button" className="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
-                  <span data-feather="calendar"></span>
-                  Novo objeto
-                </button>
 
-                <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog modal-xl" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Novo objeto</h5>
-        <button type="button" className="btn-close" data-dismiss="modal">
-        </button>
-      </div>
-      <div className="modal-body">
-        
-<Novoobjeto />
-
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" className="btn btn-primary">Salvar</button>
-      </div>
-    </div>
-  </div>
-</div>
+<ModalNovoObjeto />
 
               </div>
             </div>
             <div className="alert alert-success alert-dismissible fade show" role="alert">
-  <strong>Sucesso!</strong> Um novo objeto foi adicionado.
+  <strong>Sucesso.</strong> Um novo objeto foi adicionado.
   <button type="button" className="btn-close" data-dismiss="alert" aria-label="Close">
 
   </button>
@@ -110,13 +89,14 @@ function Objetos() {
 
 
             <div class="table-responsive" id="tabelinha">
-              <table class="table table-striped">
+              <Table striped hover>
                 <thead>
                   <tr>
                     <th scope="col">Cod. Objeto</th>
                     <th scope="col">Destinatário</th>
                     <th scope="col">Remetente</th>
                     <th scope="col">Cidade</th>
+                    <th scope="col">Tipo</th>
                     <th scope="col">Status</th>
                     <th scope="col">Modificar</th>
                   </tr>
@@ -125,17 +105,18 @@ function Objetos() {
                   {objeto.map((objeto, index) => {
                     return (
                       <tr key={index}>
-                      <td>{objeto.ID}</td>
-                      <td>{objeto.Destinatario}</td>
-                      <td>{objeto.Remetente}</td>
-                      <td>{objeto.Cidade}, {objeto.Estado}</td>
-                      <td><span className="badge bg-light text-dark">{objeto.Status}</span></td>
-                      <td></td>
+                      <td>{objeto.id}</td>
+                      <td>{objeto.destinatarionome} {objeto.destinatariosobrenome}</td>
+                      <td>{objeto.remetente}</td>
+                      <td>{objeto.cidade}, {objeto.estado}</td>
+                      <td>{objeto.prioridade}</td>
+                      <td><span className="badge bg-light text-dark">{objeto.status}</span></td>
+                      <td><ModalEditarObjeto ordemObjetoEditar={objeto.ordem} objetodestinatario={objeto.enderecodestinatario} objetocep={objeto.cep} objetoprioridade={objeto.prioridade} objetoobservacao={objeto.observacao} objetostatus={objeto.status} objetopeso={objeto.peso} objetotipo={objeto.tipo}  objetocidade={objeto.cidade} objetoestado={objeto.estado} remetenteobjeto={objeto.remetente} codigoobjeto={objeto.id} nomeobjeto={objeto.destinatarionome} sobrenomeobjeto={objeto.destinatariosobrenome}/></td>
                     </tr>
                     )
                     })}
                 </tbody>
-              </table>
+              </Table>
             </div>
           </main>
         </div>

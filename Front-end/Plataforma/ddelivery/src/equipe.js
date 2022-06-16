@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import url from './assets/api';
-import Novocolaborador from "./novoColaborador";
-import {BsPencilSquare} from "react-icons/bs";
+import {Table} from 'react-bootstrap';
+import Example from './modalexample';
+import ModalEditarColaborador from "./modalEditarColaborador";
 
 function Equipe() {
 
@@ -72,10 +73,7 @@ function Equipe() {
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h1 class="h2">Gestão de equipe</h1>
               <div class="btn-toolbar mb-2 mb-md-0">
-              <button type="button" className="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
-                  Novo colaborador
-                </button>
-<Novocolaborador />
+<Example />
               </div>
             </div>
 
@@ -87,7 +85,7 @@ function Equipe() {
 </div>
 
             <div class="table-responsive" id="tabelinha">
-              <table class="table table-striped">
+            <Table striped hover>
                 <thead>
                   <tr>
                     <th scope="col">Matricula</th>
@@ -95,6 +93,7 @@ function Equipe() {
                     <th scope="col">Cidade</th>
                     <th scope="col">Turno</th>
                     <th scope="col">Veiculo</th>
+                    <th scope="col">Placa</th>
                     <th scope="col">Capacidade</th>
                     <th scope="col">Modificar</th>
                   </tr>
@@ -103,20 +102,19 @@ function Equipe() {
                   {equipe.map((equipe, index) => {
                     return (
                       <tr key={index}>
-                      <td>{equipe.ID}</td>
+                      <td>{equipe.id}</td>
                       <td>{equipe.nome} {equipe.sobrenome}</td>
                       <td>{equipe.cidade}, {equipe.estado}</td>
                       <td>{equipe.turno}</td>
+                      <td>{equipe.veiculo}</td>
                       <td>{equipe.placa}</td>
                       <td>{equipe.capacidade} objetos</td>
-                      <td><div><button className="btn btn-primary"><BsPencilSquare /></button></div>
-                
-                      </td>
+                      <td><ModalEditarColaborador capacidadeColaborador={equipe.capacidade} situacaoColaborador={equipe.situacao} placaColaborador={equipe.placa} veiculoColaborador={equipe.veiculo} cepColaborador={equipe.cep} estadoColaborador={equipe.estado} cidadeColaborador={equipe.cidade} enderecoColaborador={equipe.endereco} senhaColaborador={equipe.senha} matricula={equipe.id} nomeColaborador={equipe.nome} sobrenomeColaborador={equipe.sobrenome} emailColaborador={equipe.email} /></td>
                     </tr>
                     )
                     })}
                 </tbody>
-              </table>
+              </Table>
 
             </div>
           </main>

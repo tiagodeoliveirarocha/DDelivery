@@ -1,9 +1,13 @@
-import React, { Component } from "react";
+import React, { useEffect,useState,Component } from "react";
 import Chart from "react-apexcharts";
+import axios from "axios";
+import url from "./assets/api";
+
 
 class Donut extends Component {
   constructor(props) {
     super(props);
+
 
     this.state = {
       options: {

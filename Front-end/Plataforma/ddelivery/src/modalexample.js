@@ -1,26 +1,61 @@
 import React, {useState} from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import axios from "axios";
-
-function Novocolaborador(){
-
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
-  const [email, setEmail] = useState("");
-  const [estado, setEstado] = useState("");
-  const [senha, setSenha] = useState("");
-  const [endereco, setEndereco] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [cep, setCep] = useState("");
-  const [veiculo, setVeiculo] = useState("");
-  const [capacidade, setCapacidade] = useState("");
-  const [placa, setPlaca] = useState("");
-  const [situacao, setSituacao] = useState("");
+import { Form, FormGroup } from "react-bootstrap";
 
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+function Example() {
+    const [show, setShow] = useState(false);
+    const [validated, setValidated] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-  const novoColabo = {   
+    const [nome, setNome] = useState("");
+    const [sobrenome, setSobrenome] = useState("");
+    const [email, setEmail] = useState("");
+    const [estado, setEstado] = useState("");
+    const [senha, setSenha] = useState("");
+    const [endereco, setEndereco] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [cep, setCep] = useState("");
+    const [veiculo, setVeiculo] = useState("");
+    const [capacidade, setCapacidade] = useState("");
+    const [placa, setPlaca] = useState("");
+    const [situacao, setSituacao] = useState("");
+  
+    const handleValidation = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();       
+            event.stopPropagation();            
+        }
+        setValidated(true);
+        console.log('validado')
+        
+
+      };
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const novoColabo = {   
+      nome,
+      sobrenome,
+      email,
+      estado,
+      senha,
+      endereco,
+      cidade,
+      cep,
+      veiculo,
+      capacidade,
+      placa,
+      situacao,
+      email
+    }
+  
+    axios.post('http://localhost:3001/api/adicionarcolab', { 
     nome,
     sobrenome,
     email,
@@ -32,44 +67,33 @@ const handleSubmit = (e) => {
     veiculo,
     capacidade,
     placa,
-    situacao
-  }
-
-  axios.post('http://localhost:3001/api/adicionarcolab', { 
-  nome,
-  sobrenome,
-  email,
-  estado,
-  senha,
-  endereco,
-  cidade,
-  cep,
-  veiculo,
-  capacidade,
-  placa,
-  situacao })
-  .then(res=>{
-    console.log(res);
-    console.log(res.data);
-  })
-
-  console.log("submit",{novoColabo});
+    situacao,
+    email })
+    .then(res=>{
+      console.log(res);
+      console.log(res.data);
+    })
   
-}
+    console.log("submit",{novoColabo});
+    setShow(false);
 
 
-        return (
-<form onSubmit={handleSubmit}>
-<div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog modal-xl" role="document">
-    <div className="modal-content" >
-      <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Adicionar novo colaborador</h5>
-        <button type="button" className="btn-close" data-dismiss="modal">
+
+  }
+  
+    return (
+      <>
+        <button className="btn btn-sm btn-outline-secondary" onClick={handleShow} >
+          Novo colaborador
         </button>
-      </div>
-      <div className="modal-body">
+  
+        <Modal show={show} onHide={handleClose} onSubmit={handleSubmit} size="xl" validated={validated}>
 
+          <Modal.Header closeButton>
+            <Modal.Title>Adicionar novo colaborador</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+<Form noValidate validated={validated}  >
 <div className="row">
 <div className="col">
   <label for="inputNome" className="form-label">Nome</label>
@@ -129,7 +153,12 @@ const handleSubmit = (e) => {
 <div className="row mb-3">
   <div className="col">
       <label for="inputVeiculo" className="form-label">Veiculo</label>
-        <input type="text" className="form-control" id="Veiculo"  value={veiculo} onChange={(e) => setVeiculo(e.target.value)} required />
+        <select id="inputVeiculo" className="form-control" value={veiculo} onChange={(e) => setVeiculo(e.target.value)} required>
+            <option selected>Selecione</option>
+            <option>Carro</option>
+            <option>Moto</option>
+            <option>Van</option>
+        </select>
   </div>
   <div className="col">
       <label for="inputCidade" className="form-label">Capacidade</label>
@@ -140,8 +169,8 @@ const handleSubmit = (e) => {
   <input type="text" className="form-control" id="Placa" maxLength={"7"} value={placa} onChange={(e) => setPlaca(e.target.value)} required />
 </div>
 <div className="col">
-      <label for="inputCidade" className="form-label">Situação</label>
-      <select id="inputCidade" className="form-control" value={situacao} onChange={(e) => setSituacao(e.target.value)} > //disabled 
+      <label for="inputSituacao" className="form-label">Situação</label>
+      <select id="inputSituacao" className="form-control" value={situacao} onChange={(e) => setSituacao(e.target.value)} disabled > //disabled 
         <option selected>Ativo</option>
         <option>Desligado</option>
         <option>Em férias</option>
@@ -150,19 +179,18 @@ const handleSubmit = (e) => {
   </div>
 </div>
 
+          </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+<button className="btn btn-primary" onClick={handleSubmit}>Salvar</button>
+          </Modal.Footer>
 
-</div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" className="btn btn-primary">Salvar</button>
-      </div>
-    </div>
-  </div>
-</div>
-</form>
-           
-        )
-    }
-
-
-export default Novocolaborador;
+        </Modal>
+      </>
+    );
+  }
+  
+  export default Example;

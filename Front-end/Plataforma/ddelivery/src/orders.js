@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import url from './assets/api';
-import Novaordem from "./novaOrdem";
-import { BsPencilSquare } from "react-icons/bs";
-
+import { BsListTask } from "react-icons/bs";
+import ModalNovaOrdem from "./modalNovaOrdem";
+import ModalEditarOrdem from "./modalEditarOrdem";
+import {Table} from 'react-bootstrap';
+import VisualizarOrdem from "./visualizarOrdem";
 
 function Orders() {
   const [orders, setOrders] = useState([])
@@ -71,34 +73,7 @@ function Orders() {
             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h1 className="h2">Gestão de ordens de entrega</h1>
               <div className="btn-toolbar mb-2 mb-md-0" id="newOrdem">
-                <button type="button" className="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#exampleModal">
-                  Nova ordem
-                </button>
-
-<div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog modal-xl" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">Criar nova ordem de entrega</h5>
-        <button type="button" className="btn-close" data-dismiss="modal">
-        </button>
-      </div>
-      <div className="modal-body">
-        
-<Novaordem />
-
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" className="btn btn-primary">Salvar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
+<ModalNovaOrdem />
 
               </div>
             </div>
@@ -111,30 +86,34 @@ function Orders() {
 
 
             <div className="table-responsive" id="tabelinha">
-              <table className="table table-striped">
+            <Table striped hover>
                 <thead>
                   <tr>
                     <th scope="col">Ordem</th>
                     <th scope="col">Entregador</th>
                     <th scope="col">Cidade</th>
                     <th scope="col">Itens</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Modificar</th>
+                    <th scope="col">Visualizar</th>
                   </tr>
                 </thead>
                 <tbody>
                   {orders.map((order, index) => {
                     return (
                       <tr key={index}>
-                      <td>{order.ID}</td>
-                      <td>{order.Entregador}</td>
-                      <td>{order.Cidade}, {order.Estado}</td>
-                      <td>{order.Qtd_Itens}</td>
-                      <td><BsPencilSquare /></td>
+                      <td>{order.id}</td>
+                      <td>{order.entregador}</td>
+                      <td>{order.cidade}, {order.estado}</td>
+                      <td>{order.qtd_Itens}</td>
+                      <td><span className="badge rounded-pill bg-success">{order.status}</span></td>
+                      <td><ModalEditarOrdem ordemstatus={order.status} ordemcidade={order.cidade} ordemestado={order.estado} numerodaordem={order.id} nomeentregador={order.entregador} nomecliente={order.cliente} ordemobservacao={order.observacao}/></td>
+                      <td><VisualizarOrdem numerodaordem={order.id} /></td>
                     </tr>
                     )
                     })}
                 </tbody>
-              </table>
+              </Table>
             </div>
           </main>
         </div>

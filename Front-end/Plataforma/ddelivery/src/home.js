@@ -1,15 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Donut from "./grafico";
+import axios from "axios";
+import url from "./assets/api";
 
-class Home extends React.Component {
-
-
-
-
-
-
+function Home() {
   
-    render() {
+  const [grafico, setGrafico] = useState([])
+  const getGrafico = async () => {
+    const response = await axios.get(url+"/dashboarddiaanterior");
+    setGrafico(response.data);
+  }
+  useEffect(() => {
+    getGrafico();
+  }, []);
+
+
+  const [ultimasentregas, setUltimasentregas] = useState([])
+  const getUltimas = async () => {
+    const response = await axios.get(url+"/ultimasentregas");
+    setUltimasentregas(response.data);
+  }
+  useEffect(() => {
+    getUltimas();
+  }, []);
+
+
+
         return (
 <div>
 <header className="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -71,7 +87,7 @@ class Home extends React.Component {
 
      
 
-<Donut className="table-responsive" />
+<Donut className="table-responsive" contagemGrafico={grafico.contagementregas} />
 
 
       <h2>Últimas Entregas</h2>
@@ -87,56 +103,18 @@ class Home extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-          </tbody>
+                  {ultimasentregas.map((ultimas, index) => {
+                    return (
+                      <tr key={index}>
+                      <td>{ultimas.id}</td>
+                      <td>{ultimas.entregador}</td>
+                      <td>{ultimas.remetente}</td>
+                      <td>{ultimas.cidade}, {ultimas.estado}</td>
+                      <td>{ultimas.ordem}</td>
+                    </tr>
+                    )
+                    })}
+                </tbody>
         </table>
       </div>
     </main>
@@ -145,7 +123,6 @@ class Home extends React.Component {
 
             </div>
         )
-    }
 
 }
 
